@@ -2,6 +2,7 @@ package io.cenet.endpoints;
 
 import io.cenet.datastore.Objectify;
 import io.cenet.datastore.entity.IdEntity;
+import io.cenet.endpoints.result.LongResult;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -13,21 +14,21 @@ import com.googlecode.objectify.VoidWork;
 public class IdApi {
 
   @ApiMethod(httpMethod = "get", path = "{id}")
-  public IdEntity getId(@Named("id") final long id) {
+  public IdEntity get(@Named("id") final long id) {
     final Key<IdEntity> key = Key.create(IdEntity.class, id);
     return Objectify.load().key(key).now();
   }
 
   @ApiMethod(httpMethod = "post")
-  public Long postId(final String content) {
+  public LongResult post(@Named("content") final String content) {
     final IdEntity entity = new IdEntity();
     entity.searchResult = content;
     final Key<IdEntity> key = Objectify.save().entity(entity).now();
-    return key.getId();
+    return new LongResult(key.getId());
   }
 
   @ApiMethod(httpMethod = "put", path = "{id}")
-  public void putId(@Named("id") final long id, final String content) {
+  public void put(@Named("id") final Long id, @Named("content") final String content) {
     // PUT and DELETE should be idempotent works
     Objectify.transaction(100, new VoidWork() {
       @Override public void vrun() {
@@ -40,7 +41,7 @@ public class IdApi {
   }
 
   @ApiMethod(httpMethod = "delete", path = "{id}")
-  public void deleteId(@Named("id") final long id) {
+  public void delete(@Named("id") final Long id) {
     // PUT and DELETE should be idempotent works
     Objectify.transaction(100, new VoidWork() {
       @Override public void vrun() {

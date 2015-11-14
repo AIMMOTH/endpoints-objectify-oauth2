@@ -1,4 +1,4 @@
-package io.cenet.endpoints;
+package io.cenet.endpoints.oauth2;
 
 import java.util.Map;
 import java.util.logging.Logger;

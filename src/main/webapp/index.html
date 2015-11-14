@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>REST</title>
+</head>
+<body>
+
+  <h1>REST</h1>
+  
+  <p>Implementation of Oauth 2.0 implementation of single and list
+    resource.</p>
+    
+  <h2>Oauth 2.0</h2>
+  
+  <p>Different are implemented.</p>
+  
+  <h3>Auth0</h3>
+  
+  <p>You need a client id and secret.</p>
+  <ol>
+    <li>Register on Auth0</li>
+    <li>Create an Account</li>
+    <li>Create an API</li>
+    <li>Get client id and secret</li>
+  </ol>
+
+  <h3>Google Identify Toolkit</h3>
+  
+  <p>Using Googles Oauth 2.0 implementation.</p>
+    
+  <h2>Entities</h2>
+  
+  <p>This is an example of how to use authentication and how to implement the authorization.</p>
+  <p>When an authentication service like Auth0 or GIT validate an user, this code gives authorization to do operations.</p>
+  <ul>
+    <li>All users may create and update single entities.</li>
+    <li>Authorized users may create, update and delete lists of entities.</li>
+  </ul>
+  <p>Reference:</p>
+  <pre>https://en.wikipedia.org/wiki/Representational_state_transfer#Example</pre>
+  
+  <h3>Single Named Operations</h3>
+  
+  <p>GET, PUT, DELETE is available for all users.</p>
+  <p>Use input as reference to an entity.</p> 
+
+  <label>Input for single named entity</label>
+  <input type="text" id="single-input">
+
+  <input type="button" value="Get"    onclick="getSingleEntity()">
+  <input type="button" value="Put"    onclick="putSingleEntity()">
+  <input type="button" value="Delete" onclick="deleteSingleEntity()">
+
+  <h3>Single ID Operations</h3>
+  
+  <p>GET, POST, PUT, DELETE is available for all users.</p>
+  <p>POST will create a new Entity and return its numbered ID.</p>
+  <p>Use the input for setting the content of an entity</p>
+
+  <label>Input for single entity with id</label>
+  <input type="text" id="single-id-input">
+
+  <input type="button" value="Get"    onclick="getIdEntity()">
+  <input type="button" value="Post"   onclick="postIdEntity()">
+  <input type="button" value="Put"    onclick="putIdEntity()">
+  <input type="button" value="Delete" onclick="deleteIdEntity()">
+
+  <h3>List Operations</h3>
+  
+  <p>GET is available for all users.</p>
+  <p>POST, PUT, DELETE is for authorized users.</p>
+  
+  <label>Input for list of entities</label>
+  <input type="text" id="list-input" placeholder="comma separated values">
+  
+  <input type="button" value="Get"    onclick="getList()">
+  <input type="button" value="Post"   onclick="postList()">
+  <input type="button" value="Put"    onclick="putList()">
+  <input type="button" value="Delete" onclick="deleteList()">
+
+</body>
+</html>

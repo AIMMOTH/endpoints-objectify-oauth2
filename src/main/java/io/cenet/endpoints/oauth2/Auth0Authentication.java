@@ -13,6 +13,13 @@ import com.google.api.server.spi.auth.common.User;
 import com.google.api.server.spi.config.Authenticator;
 import com.google.gson.Gson;
 
+/**
+ * Reference:
+ * https://auth0.com/docs/quickstart/backend/java/
+ *
+ * @author Carl
+ *
+ */
 public class Auth0Authentication implements Authenticator {
 
   private static Logger log = Logger.getLogger(Auth0Authentication.class.getName());
@@ -37,23 +44,23 @@ public class Auth0Authentication implements Authenticator {
 
   private String getToken(final HttpServletRequest httpRequest) {
     String token = null;
-      final String authorizationHeader = httpRequest.getHeader("authorization");
-      if (authorizationHeader == null) {
-          throw new RuntimeException("Unauthorized: No Authorization header was found");
-      }
+    final String authorizationHeader = httpRequest.getHeader("authorization");
+    if (authorizationHeader == null) {
+        throw new RuntimeException("Unauthorized: No Authorization header was found");
+    }
 
-      final String[] parts = authorizationHeader.split(" ");
-      if (parts.length != 2) {
-          throw new RuntimeException("Unauthorized: Format is Authorization: Bearer [token]");
-      }
+    final String[] parts = authorizationHeader.split(" ");
+    if (parts.length != 2) {
+        throw new RuntimeException("Unauthorized: Format is Authorization: Bearer [token]");
+    }
 
-      final String scheme = parts[0];
-      final String credentials = parts[1];
+    final String scheme = parts[0];
+    final String credentials = parts[1];
 
-      final Pattern pattern = Pattern.compile("^Bearer$", Pattern.CASE_INSENSITIVE);
-      if (pattern.matcher(scheme).matches()) {
-          token = credentials;
-      }
-      return token;
+    final Pattern pattern = Pattern.compile("^Bearer$", Pattern.CASE_INSENSITIVE);
+    if (pattern.matcher(scheme).matches()) {
+        token = credentials;
+    }
+    return token;
   }
 }

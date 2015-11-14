@@ -1,6 +1,10 @@
 <html>
 <head>
 <title>REST</title>
+
+  <!-- Setting the right viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
 </head>
 <body>
 
@@ -89,15 +93,84 @@
   	function namedLoaded() {
   	  console.dir(gapi.client.named.namedApi);
   	}
+  	
+//   	function oauth2Loaded() {
+//   	  console.log("Oauth2 loaded.");
+  	  // gapi.auth.authorize({client_id: "861589226770-3hshvtdqgvl6no78070aed2clm0dbicm.apps.googleusercontent.com", scope: "https://www.googleapis.com/auth/userinfo.email", immediate: true}, function(response) {console.dir(response.code);})
+//   	  gapi.client.list.listApi.get().execute(function(response) { console.dir(response);}); 
+//   	}
   
   	function localInit() {
       gapi.client.load('list' , 'v1', listLoaded , '//' + window.location.host + '/_ah/api');
       gapi.client.load('id'   , 'v1', idLoaded   , '//' + window.location.host + '/_ah/api');
       gapi.client.load('named', 'v1', namedLoaded, '//' + window.location.host + '/_ah/api');
+//       gapi.client.load('oauth2', 'v2', oauth2Loaded);
   	}
   </script>
 
   <script src="https://apis.google.com/js/client.js?onload=localInit">
+  </script>
+  
+  <input id="btn-login" class="btn-login" type="submit" />
+  <p>Name: <span id="name"></span></p>
+
+  <!-- Auth0Lock script -->
+  <script src="//cdn.auth0.com/js/lock-7.9.min.js"></script>
+  <script type="text/javascript">
+  	// javascript reference https://developers.google.com/api-client-library/javascript/reference/referencedocs 
+  	// https://auth0.com/docs/quickstart/spa/vanillajs/java
+	var lock = new Auth0Lock('0NtnbU5VIvWZ66F6CcoisgKPBa3PTzH3', 'cenet.eu.auth0.com');
+
+	var hash = lock.parseHash(window.location.hash);
+  
+    if (hash && hash.id_token) {
+      //save the token in the session:
+//       localStorage.setItem('id_token', hash.id_token);
+    	console.dir(hash.id_token);
+    	
+      //retrieve the profile:
+//     	var id_token = localStorage.getItem('id_token');
+    	if (hash.id_token) {
+    	  lock.getProfile(hash.id_token, function (err, profile) {
+    	    if (err) {
+    	      return alert('There was an error geting the profile: ' + err.message);
+    	    }
+    	    document.getElementById('name').textContent = profile.name;
+    	  });
+    	}
+    }
+  
+    if (hash && hash.error) {
+      alert('There was an error: ' + hash.error + '\n' + hash.error_description);
+    }
+  
+  	var userProfile = null;
+
+  	document.getElementById('btn-login').addEventListener('click', function() {
+  	  lock.show({ authParams: { scope: 'openid' } });
+  	});
+  	
+  	function logout() {
+  	  localStorage.removeItem('id_token');
+  	  window.location.href = "/";
+  	}
+  	
+  	function authorizedGet() {
+  	  // gapi.client.request({path: "http://localhost:8080/_ah/api/list/v1/listentity", method: "GET", headers: {Authorization: "user pass"}}).execute(function(response) { console.dir(response);});
+//     	var getFoos = fetch('/api/foo', {
+//     	  headers: {
+//     	    'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+//     	  },
+//     	  method: 'GET',
+//     	  cache: false
+//     	});
+  
+//     	getFoos.then(function (response) {
+//     	  response.json().then(function (foos) {
+//     	    console.log('the foos:', foos);
+//     	  });
+//     	});
+  	}
   </script>
 </body>
 </html>

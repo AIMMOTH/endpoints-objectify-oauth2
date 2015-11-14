@@ -52,7 +52,7 @@ public class ListApi {
     });
   }
 
-  @ApiMethod(httpMethod = "get", path = "list")
+  @ApiMethod(httpMethod = "get", path = "list", authLevel = AuthLevel.REQUIRED)
   public ListEntity get() {
     final LoadType<ListEntity> type = Objectify.load().type(ListEntity.class);
     return type.limit(1).list().get(0);

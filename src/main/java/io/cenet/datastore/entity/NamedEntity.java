@@ -10,5 +10,10 @@ public class NamedEntity {
 
   @Id
   public String name;
-  public long updated;
+
+  NamedEntity() {}
+
+  public NamedEntity(final String name) {
+    this.name = name;
+  }
 }

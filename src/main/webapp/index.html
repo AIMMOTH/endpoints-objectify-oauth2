@@ -77,5 +77,13 @@
   <input type="button" value="Put"    onclick="putList()">
   <input type="button" value="Delete" onclick="deleteList()">
 
+  <script type="text/javascript">
+  	function localInit() {
+  	  console.dir(gapi);
+  	}
+  </script>
+
+  <script src="https://apis.google.com/js/client.js?onload=localInit">
+  </script>
 </body>
 </html>

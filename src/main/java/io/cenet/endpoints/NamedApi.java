@@ -23,9 +23,7 @@ public class NamedApi {
     // PUT and DELETE should be idempotent works
     Objectify.transaction(100, new VoidWork() {
       @Override public void vrun() {
-        final Key<NamedEntity> key = Key.create(NamedEntity.class, name);
-        final NamedEntity namedEntity = Objectify.load().key(key).now();
-        namedEntity.updated = System.currentTimeMillis();
+        final NamedEntity namedEntity = new NamedEntity(name);
         Objectify.save().entity(namedEntity).now();
       }
     });

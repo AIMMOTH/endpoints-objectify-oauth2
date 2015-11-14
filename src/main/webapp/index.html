@@ -78,8 +78,22 @@
   <input type="button" value="Delete" onclick="deleteList()">
 
   <script type="text/javascript">
+  	function listLoaded() {
+  	  console.dir(gapi.client.list.listApi);
+  	}
+  
+  	function idLoaded() {
+  	  console.dir(gapi.client.id.idApi);
+  	}
+  	
+  	function namedLoaded() {
+  	  console.dir(gapi.client.named.namedApi);
+  	}
+  
   	function localInit() {
-  	  console.dir(gapi);
+      gapi.client.load('list' , 'v1', listLoaded , '//' + window.location.host + '/_ah/api');
+      gapi.client.load('id'   , 'v1', idLoaded   , '//' + window.location.host + '/_ah/api');
+      gapi.client.load('named', 'v1', namedLoaded, '//' + window.location.host + '/_ah/api');
   	}
   </script>
 
